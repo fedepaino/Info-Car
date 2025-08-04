@@ -1,8 +1,8 @@
 export const vehicles = [
     {
         id: 'v1',
-        marca: 'Honda',
-        modelo: 'Civic',
+        marca: 'ford',
+        modelo: 'kuga',
         kilometraje: 155000,
         ultimoMantenimiento: '2025-07-15',
     },
