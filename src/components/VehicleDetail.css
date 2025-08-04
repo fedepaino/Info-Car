@@ -1,0 +1,37 @@
+.vehicle-detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.vehicle-info-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-info-card h2 {
+    margin-top: 0;
+}
+
+.vehicle-info-card .back-btn {
+    background-color: #95a5a6;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.services-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.services-card h3 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
