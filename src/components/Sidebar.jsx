@@ -19,7 +19,7 @@ const Sidebar = () => {
                     <li>
                         <Link to="/">
                             <span className="icon">🏠</span>
-                            <span className="link-text">Dashboard</span>
+                            <span className="link-text">Home</span>
                         </Link>
                     </li>
                     <li>
@@ -32,6 +32,12 @@ const Sidebar = () => {
                         <Link to="/add-maintenance">
                             <span className="icon">🔧</span>
                             <span className="link-text">Agregar Mantenimiento</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/alertas">
+                            <span className="icon">🔔</span>
+                            <span className="link-text">Alertas</span>
                         </Link>
                     </li>
                 </ul>

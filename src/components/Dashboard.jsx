@@ -9,7 +9,7 @@ const Dashboard = ({vehicles, services, alerts}) => {
     return (
         <main className="dashboard-content">
             <div className="dashboard-header">
-                <h1>Dashboard</h1>
+                <h1>Home</h1>
             </div>
 
             <div className="dashboard-grid">

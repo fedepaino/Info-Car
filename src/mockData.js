@@ -4,21 +4,21 @@ export const vehicles = [
         marca: 'ford',
         modelo: 'kuga',
         kilometraje: 155000,
-        ultimoMantenimiento: '2025-07-15',
+        ultimaITV: '2024-07-15',
     },
     {
         id: 'v2',
         marca: 'Toyota',
         modelo: 'Corolla',
         kilometraje: 85000,
-        ultimoMantenimiento: '2025-06-20',
+        ultimaITV: '2024-06-20',
     },
     {
         id: 'v3',
         marca: 'Ford',
         modelo: 'F-150',
         kilometraje: 210000,
-        ultimoMantenimiento: '2025-05-10',
+        ultimaITV: '2024-05-10',
     },
 ];
 

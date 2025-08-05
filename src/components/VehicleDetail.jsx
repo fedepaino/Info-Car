@@ -1,45 +1,48 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { formatDate } from '../utils/dateUtils';
-import './VehicleDetail.css'; // Crear un archivo CSS para esta vista
 
 const VehicleDetail = ({ vehicles, services }) => {
     const { vehicleId } = useParams();
-    const navigate = useNavigate();
-
-    // Buscar el vehículo y sus servicios
     const vehicle = vehicles.find(v => v.id === vehicleId);
     const vehicleServices = services.filter(s => s.vehiculoId === vehicleId);
 
     if (!vehicle) {
-        return <div>Vehículo no encontrado.</div>;
+        return <h2>Vehículo no encontrado</h2>;
     }
 
     return (
-        <div className="vehicle-detail-container">
-            <div className="vehicle-info-card">
-                <h2>{vehicle.marca} {vehicle.modelo} ({vehicle.anio})</h2>
-                <p><strong>Kilometraje actual:</strong> {vehicle.kilometraje} km</p>
-                <button onClick={() => navigate(-1)} className="back-btn">Volver al Dashboard</button>
+        <div>
+            <div className="card vehicle-detail-header">
+                <h2>{vehicle.marca} {vehicle.modelo}</h2>
+                <p><strong>Kilometraje:</strong> {vehicle.kilometraje} km</p>
+                <p><strong>Última ITV:</strong> {formatDate(vehicle.ultimaITV)}</p>
+                <div>
+                    <Link to={`/vehicles/${vehicleId}/add-alert`} className="button">
+                        ➕ Agregar Alerta de Mantenimiento
+                    </Link>
+                </div>
+                <div>
+                    <Link to={`/vehicles/${vehicleId}/edit`} className="button">
+                        ✏️ Editar Vehículo
+                    </Link>
+                </div>
             </div>
 
-            <div className="services-card">
-                <h3>Historial de Mantenimientos</h3>
+            <div className="card">
+                <h3>Historial de Mantenimiento</h3>
                 {vehicleServices.length > 0 ? (
                     <ul>
-                        {vehicleServices.map(s => (
-                            <li key={s.id}>
-                                <div>
-                                    <h4>{s.tipo}</h4>
-                                    <p>Fecha: {formatDate(s.fecha)}</p>
-                                    <p>Kilometraje: {s.kilometraje} km</p>
-                                </div>
+                        {vehicleServices.map(service => (
+                            <li key={service.id}>
+                                <h4>{service.tipo}</h4>
+                                <p><strong>Fecha:</strong> {formatDate(service.fecha)}</p>
+                                <p><strong>Kilometraje:</strong> {service.kilometraje} km</p>
                             </li>
                         ))}
                     </ul>
-                ) : (
-                    <p>No hay mantenimientos registrados para este vehículo.</p>
-                )}
+                ) : (<p>No hay registros de mantenimiento para este vehículo.</p>)}
             </div>
         </div>
     );
