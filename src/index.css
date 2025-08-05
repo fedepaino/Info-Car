@@ -27,92 +27,97 @@ body {
 
 /* SIDEBAR - ESTADO COLAPSADO */
 .sidebar {
-  position: fixed; /* Lo saca del flujo y lo fija en la ventana */
-  top: 0;
-  left: 0;
-  width: 60px; /* El ancho base para mostrar solo los iconos */
-  height: 100%;
-  padding: 20px 0;
-  background-color: rgba(44, 62, 80, 0.9); /* Fondo semi-transparente */
-  color: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-  transition: width 0.3s ease; /* Animar el cambio de ancho */
+  width: 70px; /* Ancho por defecto (solo iconos) */
+  background-color: #2f3640; /* Color de fondo oscuro */
+  color: #f5f6fa; /* Color del texto y los iconos */
+  height: 100vh; /* Altura completa de la pantalla */
+  padding: 15px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease-in-out; /* Transición suave del ancho */
+  position: fixed; /* Lo fija en el lateral izquierdo */
   z-index: 1000;
-  overflow: hidden; /* Oculta el texto que se sale del ancho */
+  overflow: hidden;
 }
 
-/* SIDEBAR - ESTADO EXPANDIDO */
 .sidebar.expanded {
-  width: 250px; /* El ancho del sidebar cuando está expandido */
+  width: 200px; /* Ancho al expandirse */
 }
 
-.sidebar .logo-container {
+/* --- LOGO --- */
+.logo-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #34495e;
-  margin: 0 10px 20px 10px;
+  margin-bottom: 30px;
+  padding: 0 10px;
 }
 
-.sidebar.expanded .logo-container {
-  justify-content: flex-start;
+.logo-icon {
+  font-size: 28px;
+  color: #fff;
 }
 
-.sidebar .logo-container .logo-text {
-  display: none;
-  font-size: 1.5rem;
-  font-weight: bold;
+.logo-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
   margin-left: 10px;
+  white-space: nowrap; /* Evita que el texto se rompa */
+  transition: opacity 0.3s ease;
 }
 
-.sidebar.expanded .logo-container .logo-text {
-  display: block; /* Visible al expandirse */
-}
-
+/* --- ENLACES DE NAVEGACIÓN --- */
 .sidebar nav ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
-.sidebar nav li {
-  margin-bottom: 10px;
-}
-
-.sidebar nav a {
+.sidebar-link {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 15px 20px;
   text-decoration: none;
-  color: white;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.sidebar nav a:hover {
-  background-color: rgba(52, 73, 94, 0.9);
-}
-
-.sidebar nav .icon {
-  font-size: 1.2rem;
-  width: 30px;
-  text-align: center;
-  flex-shrink: 0;
-}
-
-.sidebar nav .link-text {
-  display: none;
-  margin-left: 10px;
+  color: #f5f6fa;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
   white-space: nowrap;
-  transition: opacity 0.2s ease;
-  opacity: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.sidebar.expanded nav .link-text {
-  display: block;
+.icon {
+  font-size: 22px;
+  min-width: 30px; /* Para alinear los iconos */
+  transition: transform 0.2s ease;
+}
+
+.link-text {
+  margin-left: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Muestra el texto cuando el sidebar está expandido */
+.sidebar.expanded .link-text {
   opacity: 1;
 }
 
+/* Efecto al pasar el ratón sobre un enlace */
+.sidebar-link:hover {
+  background-color: #4a69bd; /* Un color de acento azul */
+  color: #fff;
+}
+
+.sidebar-link:hover .icon {
+  transform: scale(1.1); /* Ligeramente más grande */
+}
+
+/* Estilo para el enlace activo (opcional) */
+.sidebar-link.active {
+  background-color: #4a69bd;
+  color: #fff;
+}
 /* Contenido principal */
 .main-content-area {
   flex-grow: 1;
