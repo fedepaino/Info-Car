@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useReducer, useMemo, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom'; // Importar Routes y Route
 
 import Sidebar from './components/Sidebar';
@@ -11,38 +11,25 @@ import VehicleDetail from './components/VehicleDetail'; // Importar nuevo compon
 import AllAlertsPage from './components/AllAlertsPage';
 import './index.css';
 
-import { vehicles as initialVehicles, services as initialServices, alerts as initialAlerts } from './mockData';
+import { appReducer, loadInitialState } from './store';
 
 function App() {
-  const [vehicles, setVehicles] = useState(initialVehicles);
-  const [services, setServices] = useState(initialServices);
-  const [alerts, setAlerts] = useState(initialAlerts);
+  // 3. Usar useReducer para manejar el estado global
+  const [state, dispatch] = useReducer(appReducer, undefined, loadInitialState);
+  const { vehicles, services, alerts } = state;
 
-  // Función para agregar un nuevo vehículo
-  const handleAddVehicle = (newVehicle) => {
-    setVehicles([...vehicles, { ...newVehicle, id: Date.now().toString() }]);
-  };
+  // 4. Usar useEffect para guardar el estado en localStorage cada vez que cambie
+  useEffect(() => {
+    localStorage.setItem('infoCarState', JSON.stringify(state));
+  }, [state]);
 
-  // Función para editar un vehículo existente
-  const handleEditVehicle = (vehicleId, updatedData) => {
-    setVehicles(vehicles.map(vehicle =>
-      vehicle.id === vehicleId
-        ? { ...vehicle, ...updatedData }
-        : vehicle
-    ));
-  };
+  // 5. Adaptar las funciones de manejo para que usen `dispatch`
+  const handleAddVehicle = (newVehicle) => dispatch({ type: 'ADD_VEHICLE', payload: newVehicle });
+  const handleEditVehicle = (vehicleId, updatedData) => dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData } });
+  const handleAddMaintenance = (newMaintenance) => dispatch({ type: 'ADD_MAINTENANCE', payload: newMaintenance });
+  const handleAddAlert = (newAlert) => dispatch({ type: 'ADD_ALERT', payload: newAlert });
 
-  // Función para agregar un nuevo mantenimiento
-  const handleAddMaintenance = (newMaintenance) => {
-    setServices([...services, { ...newMaintenance, id: Date.now().toString() }]);
-  };
-
-  // Función para agregar una nueva alerta
-  const handleAddAlert = (newAlert) => {
-    setAlerts([...alerts, { ...newAlert, id: Date.now().toString() }]);
-  };
-
-  // Enriquecer y ordenar las alertas con los datos del vehículo
+  // El resto de la lógica (useMemo) permanece igual, ya que depende de `vehicles` y `alerts`
   const enrichedAlerts = useMemo(() => {
     const mappedAlerts = alerts.map(alert => {
       const vehicle = vehicles.find(v => v.id === alert.vehiculoId);
