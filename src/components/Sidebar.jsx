@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
+// Importa los iconos de React Icons
+import { FaHome, FaWrench, FaBell, FaCog } from 'react-icons/fa';
+import { IoCarSportSharp } from "react-icons/io5";
+
 const Sidebar = () => {
     const [isHovered, setIsHovered] = useState(false);
 
@@ -11,33 +16,33 @@ const Sidebar = () => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="logo-container">
-                <span role="img" aria-label="gear">⚙️</span>
-                <span className="logo-text">InfoCar</span>
+                <FaCog className="logo-icon" />
+                {isHovered && <span className="logo-text">InfoCar</span>}
             </div>
             <nav>
                 <ul>
                     <li>
-                        <Link to="/">
-                            <span className="icon">🏠</span>
-                            <span className="link-text">Home</span>
+                        <Link to="/" className="sidebar-link">
+                            <FaHome className="icon" />
+                            {isHovered && <span className="link-text">Home</span>}
                         </Link>
                     </li>
                     <li>
-                        <Link to="/add-vehicle">
-                            <span className="icon">🚗</span>
-                            <span className="link-text">Agregar Vehículo</span>
+                        <Link to="/add-vehicle" className="sidebar-link">
+                            <IoCarSportSharp className="icon" />
+                            {isHovered && <span className="link-text">Vehículos</span>}
                         </Link>
                     </li>
                     <li>
-                        <Link to="/add-maintenance">
-                            <span className="icon">🔧</span>
-                            <span className="link-text">Agregar Mantenimiento</span>
+                        <Link to="/add-maintenance" className="sidebar-link">
+                            <FaWrench className="icon" />
+                            {isHovered && <span className="link-text">Mantenimiento</span>}
                         </Link>
                     </li>
                     <li>
-                        <Link to="/alertas">
-                            <span className="icon">🔔</span>
-                            <span className="link-text">Alertas</span>
+                        <Link to="/alertas" className="sidebar-link">
+                            <FaBell className="icon" />
+                            {isHovered && <span className="link-text">Alertas</span>}
                         </Link>
                     </li>
                 </ul>
