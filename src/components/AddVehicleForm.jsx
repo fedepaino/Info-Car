@@ -29,12 +29,12 @@ const AddVehicleForm = ({ onSubmit, onCancel }) => {
                 formData.append('timestamp', timestamp);
                 formData.append('signature', signature);
                 // ¡IMPORTANTE! Reemplaza con tus valores reales de Cloudinary
-                formData.append('api_key', '453669563368148'); 
+                formData.append('api_key', import.meta.env.VITE_CLOUDINARY_API_KEY); 
                 formData.append('folder', 'info-car-vehicles');
 
                 // 3. Subir la imagen a Cloudinary
                 const uploadResponse = await axios.post(
-                    `https://api.cloudinary.com/v1_1/da77hokqy/image/upload`,
+                    `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
                     formData
                 );
 
