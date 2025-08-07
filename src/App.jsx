@@ -11,21 +11,58 @@ import VehicleDetail from './components/VehicleDetail'; // Importar nuevo compon
 import AllAlertsPage from './components/AllAlertsPage';
 import './index.css';
 
-import { appReducer, loadInitialState } from './store';
+import { appReducer, initialState } from './store';
+
+const API_URL = 'http://localhost:5000/api';
 
 function App() {
-  // 3. Usar useReducer para manejar el estado global
-  const [state, dispatch] = useReducer(appReducer, undefined, loadInitialState);
+  const [state, dispatch] = useReducer(appReducer, initialState);
   const { vehicles, services, alerts } = state;
 
-  // 4. Usar useEffect para guardar el estado en localStorage cada vez que cambie
+  // Cargar datos iniciales desde el backend al montar el componente
   useEffect(() => {
-    localStorage.setItem('infoCarState', JSON.stringify(state));
-  }, [state]);
+    const fetchInitialData = async () => {
+      try {
+        // Por ahora, solo cargamos vehículos. Puedes añadir services y alerts.
+        const response = await fetch(`${API_URL}/vehicles`);
+        const vehiclesData = await response.json();
+        dispatch({ type: 'SET_INITIAL_DATA', payload: { vehicles: vehiclesData, services: [], alerts: [] } });
+      } catch (error) {
+        console.error("Error al cargar los datos iniciales:", error);
+      }
+    };
+    fetchInitialData();
+  }, []);
 
-  // 5. Adaptar las funciones de manejo para que usen `dispatch`
-  const handleAddVehicle = (newVehicle) => dispatch({ type: 'ADD_VEHICLE', payload: newVehicle });
-  const handleEditVehicle = (vehicleId, updatedData) => dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData } });
+  const handleAddVehicle = async (vehicleData) => {
+    try {
+      const response = await fetch(`${API_URL}/vehicles`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(vehicleData),
+      });
+      const newVehicle = await response.json();
+      dispatch({ type: 'ADD_VEHICLE', payload: newVehicle });
+    } catch (error) {
+      console.error("Error al agregar vehículo:", error);
+    }
+  };
+
+  const handleEditVehicle = async (vehicleId, updatedData) => {
+    try {
+      const response = await fetch(`${API_URL}/vehicles/${vehicleId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
+      });
+      const savedVehicle = await response.json();
+      dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData: savedVehicle } });
+    } catch (error) {
+      console.error("Error al editar vehículo:", error);
+    }
+  };
+
+  // TODO: Adaptar estas funciones para que usen fetch, igual que las de vehículos
   const handleAddMaintenance = (newMaintenance) => dispatch({ type: 'ADD_MAINTENANCE', payload: newMaintenance });
   const handleAddAlert = (newAlert) => dispatch({ type: 'ADD_ALERT', payload: newAlert });
 
