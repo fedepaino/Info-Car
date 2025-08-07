@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def init_db():
     """Inicializa la base de datos y crea las tablas si no existen."""
     conn = sqlite3.connect('infocar.db')
