@@ -6,9 +6,15 @@ const cors = require('cors');
 
 const app = express();
 
+// Lista de orígenes permitidos
+const allowedOrigins = [
+  'http://localhost:5173', // Tu frontend en desarrollo
+  'https://info-car-front-end.onrender.com' // ¡IMPORTANTE! Reemplaza esto con la URL de tu frontend
+];
+
 // Configura CORS para permitir peticiones desde tu frontend
 app.use(cors({
-    origin: 'http://localhost:5173' // O la URL donde corre tu app de React
+    origin: allowedOrigins
 }));
 
 // Configura Cloudinary
