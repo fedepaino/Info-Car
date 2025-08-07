@@ -12,7 +12,7 @@ const VehicleCard = ({ vehicle, onClick }) => {
         return url.replace('/upload/', '/upload/w_100,h_100,c_fill,g_auto/');
     };
 
-    // Asumimos que 'vehicle' tiene: marca, modelo, matricula, kilometraje y opcionalmente imageUrl
+    // Asumimos que 'vehicle' tiene: marca, modelo, matricula, y opcionalmente imageUrl
     return (
         <div className="vehicle-card" onClick={onClick} role="button" tabIndex={0}>
             <div className="vehicle-card-image-container">

@@ -13,7 +13,8 @@ def init_db():
             matricula TEXT,
             anio INTEGER,
             kilometraje INTEGER,
-            ultimaITV TEXT
+            ultimaITV TEXT,
+            imageUrl TEXT
         );
 
         CREATE TABLE IF NOT EXISTS services (

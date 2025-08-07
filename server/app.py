@@ -65,14 +65,15 @@ def add_vehicle():
         'matricula': data.get('matricula'), # Ya lo tenías aquí, ¡genial!
         'anio': data.get('anio'),
         'kilometraje': data.get('kilometraje'),
-        'ultimaITV': data.get('ultimaITV')
+        'ultimaITV': data.get('ultimaITV'),
+        'imageUrl': data.get('imageUrl')
     }
 
     db = get_db()
     db.execute(
         # Corregido: Añadimos la columna 'matricula' y un '?' extra para los valores.
-        'INSERT INTO vehicles (id, marca, modelo, matricula, anio, kilometraje, ultimaITV) VALUES (?, ?, ?, ?, ?, ?, ?)',
-        (new_vehicle['id'], new_vehicle['marca'], new_vehicle['modelo'], new_vehicle['matricula'], new_vehicle['anio'], new_vehicle['kilometraje'], new_vehicle['ultimaITV'])
+        'INSERT INTO vehicles (id, marca, modelo, matricula, anio, kilometraje, ultimaITV, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        (new_vehicle['id'], new_vehicle['marca'], new_vehicle['modelo'], new_vehicle['matricula'], new_vehicle['anio'], new_vehicle['kilometraje'], new_vehicle['ultimaITV'], new_vehicle['imageUrl'])
     )
     db.commit()
 
@@ -85,8 +86,8 @@ def update_vehicle(vehicle_id):
     db = get_db()
     
     db.execute(
-        'UPDATE vehicles SET marca = ?, modelo = ?, matricula = ?, anio = ?, kilometraje = ?, ultimaITV = ? WHERE id = ?',
-        (data.get('marca'), data.get('modelo'), data.get('matricula'), data.get('anio'), data.get('kilometraje'), data.get('ultimaITV'), vehicle_id)
+        'UPDATE vehicles SET marca = ?, modelo = ?, matricula = ?, anio = ?, kilometraje = ?, ultimaITV = ?, imageUrl = ? WHERE id = ?',
+        (data.get('marca'), data.get('modelo'), data.get('matricula'), data.get('anio'), data.get('kilometraje'), data.get('ultimaITV'), data.get('imageUrl'), vehicle_id)
     )
     db.commit()
     
