@@ -10,6 +10,7 @@ def init_db():
             id TEXT PRIMARY KEY,
             marca TEXT NOT NULL,
             modelo TEXT NOT NULL,
+            matricula TEXT,
             anio INTEGER,
             kilometraje INTEGER,
             ultimaITV TEXT

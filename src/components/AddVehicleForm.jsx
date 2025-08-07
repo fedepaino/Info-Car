@@ -3,12 +3,14 @@ import React, { useState } from 'react';
 const AddVehicleForm = ({ onSubmit, onCancel }) => {
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
+    const [matricula, setMatricula] = useState('');
     const [anio, setAnio] = useState('');
     const [kilometraje, setKilometraje] = useState('');
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newVehicle = { marca, modelo, anio: parseInt(anio), kilometraje: parseInt(kilometraje) };
+        const newVehicle = { marca, modelo, matricula, anio: parseInt(anio), kilometraje: parseInt(kilometraje) };
         onSubmit(newVehicle);
     };
 
@@ -27,6 +29,10 @@ const AddVehicleForm = ({ onSubmit, onCancel }) => {
                 <div className="form-group">
                     <label>Año:</label>
                     <input type="number" value={anio} onChange={(e) => setAnio(e.target.value)} required />
+                </div>
+                <div className="form-group">
+                    <label>Matricula:</label>
+                    <input type="text" value={matricula} onChange={(e) => setMatricula(e.target.value)} required />
                 </div>
                 <div className="form-group">
                     <label>Kilometraje inicial:</label>
