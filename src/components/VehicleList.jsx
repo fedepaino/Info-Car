@@ -1,22 +1,31 @@
 import React from 'react';
-
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import VehicleCard from './VehicleCard';
+import './VehicleList.css';
 
 const VehicleList = ({ vehicles }) => {
+    const navigate = useNavigate();
+
+    const handleCardClick = (vehicleId) => {
+        navigate(`/vehicles/${vehicleId}`);
+    };
+
     return (
         <div className="card">
-            <h3>Vehículos Registrados</h3>
-            <ul>
-                {vehicles.map(v => (
-                    <li key={v.id}>
-                        {/* Usamos Link para navegar a la nueva página */}
-                        <Link to={`/vehicles/${v.id}`}>
-                            <h4>{v.marca} {v.modelo}</h4>
-                            <p>Kilometraje: {v.kilometraje} km</p>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+            <h3 style={{margin:5}}>Vehículos Registrados</h3>
+            <div className="vehicle-list">
+                {vehicles.length > 0 ? (
+                    vehicles.map(vehicle => (
+                        <VehicleCard
+                            key={vehicle.id}
+                            vehicle={vehicle}
+                            onClick={() => handleCardClick(vehicle.id)}
+                        />
+                    ))
+                ) : (
+                    <p>No hay vehículos registrados.</p>
+                )}
+            </div>
         </div>
     );
 };

@@ -8,9 +8,7 @@ import { vehicles, services, alerts } from '../mockData';
 const Dashboard = ({vehicles, services, alerts}) => {
     return (
         <main className="dashboard-content">
-            <div className="dashboard-header">
-                <h1>Home</h1>
-            </div>
+            
 
             <div className="dashboard-grid">
                 <div className="main-panel">
