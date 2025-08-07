@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logoSrc from '../img/logo-icar.jpg'; // 1. Importa la imagen
 
 
 // Importa los iconos de React Icons
@@ -16,7 +17,7 @@ const Sidebar = () => {
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="logo-container">
-                <FaCog className="logo-icon" />
+                <img src={logoSrc} alt="Logo de InfoCar" style={{ width: '40px', height: 'auto', marginRight: '5px' }}/> {/* 2. Usa la variable importada */}
                 {isHovered && <span className="logo-text">InfoCar</span>}
             </div>
             <nav>
