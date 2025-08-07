@@ -9,6 +9,11 @@ app = Flask(__name__)
 # pueda hacer peticiones a este backend.
 CORS(app)
 
+# --- Inicialización de la Base de Datos ---
+# Llamamos a init_db() aquí para asegurar que la base de datos y las tablas
+# se creen al iniciar la aplicación, sin importar el entorno.
+init_db()
+
 DATABASE = 'infocar.db'
 
 def get_db():
@@ -101,5 +106,4 @@ def update_vehicle(vehicle_id):
 # TODO: Agregar endpoints para services y alerts
 
 if __name__ == '__main__':
-    init_db()  # Asegura que la DB y las tablas estén creadas al iniciar
     app.run(debug=True, port=5000) # Flask corre en el puerto 5000 por defecto
