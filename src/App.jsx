@@ -42,8 +42,13 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(vehicleData),
       });
-      const newVehicle = await response.json();
-      dispatch({ type: 'ADD_VEHICLE', payload: newVehicle });
+      const newVehicleFromApi = await response.json();
+      // Combinamos los datos del formulario (que tienen la imageUrl) con los de la API (que tienen el id)
+      const finalNewVehicle = {
+        ...vehicleData,
+        ...newVehicleFromApi,
+      };
+      dispatch({ type: 'ADD_VEHICLE', payload: finalNewVehicle });
     } catch (error) {
       console.error("Error al agregar vehículo:", error);
     }
@@ -56,8 +61,13 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData),
       });
-      const savedVehicle = await response.json();
-      dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData: savedVehicle } });
+      const savedVehicleFromApi = await response.json();
+      // Hacemos lo mismo para la edición
+      const finalUpdatedVehicle = {
+        ...updatedData,
+        ...savedVehicleFromApi,
+      };
+      dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData: finalUpdatedVehicle } });
     } catch (error) {
       console.error("Error al editar vehículo:", error);
     }
