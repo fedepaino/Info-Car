@@ -20,7 +20,7 @@ const AddVehicleForm = ({ onSubmit, onCancel }) => {
         if (imageFile) {
             try {
                 // 1. Obtener la firma del backend (asegúrate de que esté corriendo)
-                const response = await axios.get('http://localhost:3001/api/sign-upload');
+            const response = await axios.get(import.meta.env.VITE_SIGN_URL);
                 const { signature, timestamp } = response.data;
 
                 // 2. Preparar el FormData para Cloudinary
