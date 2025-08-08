@@ -43,31 +43,24 @@ function App() {
         body: JSON.stringify(vehicleData),
       });
       const newVehicleFromApi = await response.json();
-      // Combinamos los datos del formulario (que tienen la imageUrl) con los de la API (que tienen el id)
-      const finalNewVehicle = {
-        ...vehicleData,
-        ...newVehicleFromApi,
-      };
-      dispatch({ type: 'ADD_VEHICLE', payload: finalNewVehicle });
+      // La respuesta de la API debe ser la única fuente de verdad.
+      // Si la imageUrl no está aquí, significa que el backend no la está devolviendo en el POST.
+      dispatch({ type: 'ADD_VEHICLE', payload: newVehicleFromApi });
     } catch (error) {
       console.error("Error al agregar vehículo:", error);
     }
   };
 
   const handleEditVehicle = async (vehicleId, updatedData) => {
-    try {
+    try { // Hacemos lo mismo para la edición
       const response = await fetch(`${API_URL}/vehicles/${vehicleId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData),
       });
       const savedVehicleFromApi = await response.json();
-      // Hacemos lo mismo para la edición
-      const finalUpdatedVehicle = {
-        ...updatedData,
-        ...savedVehicleFromApi,
-      };
-      dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData: finalUpdatedVehicle } });
+      // La respuesta de la API debe ser la única fuente de verdad.
+      dispatch({ type: 'EDIT_VEHICLE', payload: { vehicleId, updatedData: savedVehicleFromApi } });
     } catch (error) {
       console.error("Error al editar vehículo:", error);
     }
